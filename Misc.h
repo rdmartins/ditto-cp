@@ -161,6 +161,7 @@ __int64 GetLastWriteTime(const CString &csFile);
 #define WM_RESTORE_DB	WM_USER + 230
 #define WM_BACKUP_DB	WM_USER + 231
 #define WM_REFRESH_FOOTER WM_USER + 232
+#define WM_SCRIPT WM_USER + 233
 
 
 #if !defined(_BITSET_)

@@ -72,6 +72,7 @@ IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
 	ON_MESSAGE(WM_DISPLAYCHANGE, &CMainFrame::OnResolutionChange)
 	ON_MESSAGE(WM_TRAYNOTIFY, &CMainFrame::OnTrayNotification)
 	ON_MESSAGE(WM_PLAIN_TEXT_PASTE, &CMainFrame::OnPlainTextPaste)
+	ON_MESSAGE(WM_SCRIPT, &CMainFrame::OnScript)
 		ON_WM_WININICHANGE()
 		ON_COMMAND(ID_FIRST_SHOWSTARTUPMESSAGE, &CMainFrame::OnFirstShowstartupmessage)
 		ON_UPDATE_COMMAND_UI(ID_FIRST_SHOWSTARTUPMESSAGE, &CMainFrame::OnUpdateFirstShowstartupmessage)
@@ -183,6 +184,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 LRESULT CMainFrame::OnPlainTextPaste(WPARAM wParam, LPARAM lParam)
 {
 	DoTextOnlyPaste();
+	return 1;
+}
+
+LRESULT CMainFrame::OnScript(WPARAM wParam, LPARAM lParam)
+{
+	StartKeyModifyerTimer();
+	ShowQPasteWithActiveWindowCheck();
 	return 1;
 }
 

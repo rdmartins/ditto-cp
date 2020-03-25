@@ -33,6 +33,7 @@ public:
 		m_bOpenWindow = FALSE;
 		m_bCloseWindow = FALSE;
 		m_plainTextPaste = FALSE;
+		m_script = FALSE;
 	}
 
  	virtual void ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLast)
@@ -69,6 +70,10 @@ public:
 			{
 				m_plainTextPaste = TRUE;
 			}
+			else if (STRICMP(pszParam, _T("Script")) == 0)
+			{
+				m_script = TRUE;
+			}
   		}
  
 		CCommandLineInfo::ParseParam(pszParam, bFlag, bLast);
@@ -80,6 +85,7 @@ public:
 	BOOL m_bCloseWindow;
 	BOOL m_bOpenWindow;
 	BOOL m_plainTextPaste;
+	BOOL m_script;
 };
 
 CCP_MainApp theApp;
@@ -267,6 +273,17 @@ BOOL CCP_MainApp::InitInstance()
 		if (hWnd)
 		{
 			ret = ::SendMessage(hWnd, WM_PLAIN_TEXT_PASTE, NULL, NULL);
+		}
+
+		return FALSE;
+	}
+	else if (cmdInfo.m_script)
+	{		
+		LRESULT ret = 0;
+		HWND hWnd = (HWND)(LONG_PTR)CGetSetOptions::GetMainHWND();
+		if (hWnd)
+		{
+			ret = ::SendMessage(hWnd, WM_SCRIPT, NULL, NULL);
 		}
 
 		return FALSE;
